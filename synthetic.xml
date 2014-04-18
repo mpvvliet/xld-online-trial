@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<synthetic xmlns="http://www.xebialabs.com/deployit/synthetic">
+
+	<!-- 
+		Idea: deploy a resource and an artifact to a directory and visualize both as an HTML page. Everyone has a browser
+		so this could be a good way to visualize a deployment result.
+		
+		The resource could be as simple as a line of text (specifying text / font / size / color) and would be incorporated
+		into the HTML page. The artifact could be uploaded to the target directory and included in the HTML page as a link
+		to the file. If it is a text file (e.g. with placeholders) it could even be opened and viewed.
+		
+		- need Configuration CI
+	-->
+	<type-modification type="udm.BaseConfigurationItem">
+		<property name="notes" description="Notes regarding the CI." kind="string" size="large" category="Notes" hidden="false" required="false"/>
+	</type-modification>
+	
+	<type type="intro.DeployedResource" extends="generic.ExecutedScript" deployable-type="intro.Resource" container-type="intro.Container">
+		<generate-deployable type="intro.Resource" extends="generic.Resource" />
+
+		<property name="text" description="The resource text, a string property, to be set by the developer" kind="string" required="true"/>
+		<property name="size" description="The resource size, an integer property, to be set by the developer" kind="integer" required="true"/>
+		<property name="font" description="The resource font, a string property, to be set by the deployer" kind="string" required="true"/>
+		<property name="color" description="The resource color, a string property, environment-specific" kind="string" required="false"/>
+		
+		<!-- Hidden -->
+		<!-- NOTE: need .sh and .bat! -->
+		<property name="createScript" default="intro/create-resource" hidden="true" />
+		<property name="createOrder" kind="integer" default="48" hidden="true" />
+		<property name="modifyScript" default="intro/modify-resource" hidden="true" />
+	    <property name="modifyOrder" kind="integer" default="48" hidden="true" />
+		<property name="destroyScript" default="intro/destroy-resource"	hidden="true" />
+		<property name="destroyOrder" kind="integer" default="52" hidden="true" />
+		<property name="destroyOptions" kind="set_of_string" default="[none]" hidden="true" />
+	</type>
+	
+	<type type="intro.DeployedArtifact" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="intro.Artifact" container-type="intro.Container">
+		<generate-deployable type="intro.Artifact" extends="generic.Archive" />
+		
+		<property name="description" description="The artifact description, a string property, to be set by the developer" kind="string" required="true"/>
+		<property name="target" description="The artifact target, a string property, environment-specific" kind="string" required="true"/>
+		
+		<!-- Hidden -->
+		<!-- NOTE: need .sh and .bat! -->
+		<property name="createScript" default="intro/create-artifact" hidden="true" />
+		<property name="modifyScript" default="intro/modify-artifact" hidden="true" />
+		<property name="destroyScript" default="intro/destroy-artifact"	hidden="true" />
+		<property name="destroyOptions" kind="set_of_string" default="[none]" hidden="true" />
+	</type>
+
+	<type type="intro.Container" extends="generic.Container" description="This container hosts instances of intro.Resource and intro.Artifact type CIs.">
+
+		<!-- Properties -->
+		<property name="home" description="The container home directory, a string property, determines where the deployed CIs are stored" />
+		<property name="configuration" kind="ci" referenced-type="intro.Configuration" description="The container configuration, a CI property, specifies configuration about deployments to this container" required="false"/>
+		   
+		<!-- Hidden -->
+        <property name="startScript" default="intro/start-container" hidden="true" />
+        <property name="stopScript" default="intro/stop-container" hidden="true" />
+        <property name="stopWaitTime" kind="integer" default="2" hidden="true" />
+        <property name="startWaitTime" kind="integer" default="2" hidden="true" />
+		<property name="restartOrder" kind="integer" default="80" hidden="true" />
+
+        <method name="start"/>
+        <method name="stop"/>
+	</type>
+
+	<type type="intro.Configuration" extends="udm.Configuration" description="This CI specifies configuration for deployments of intro.* CIs.">
+		<!-- Properties -->
+		<property name="setting" description="Some property"/>
+	</type>
+
+</synthetic>

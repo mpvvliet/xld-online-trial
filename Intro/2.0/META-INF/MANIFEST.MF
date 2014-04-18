@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Deployit-Package-Format-Version: 1.3
+CI-Application: Intro
+CI-Version: 2.0
+
+Name: PetClinic-1.0.war
+CI-Type: intro.Artifact
+CI-Name: artifact
+CI-description: This artifact is a WAR file without any placeholders.
+
+Name: resource
+CI-Type: intro.Resource
+CI-text: The man in black fled across the desert and the gunslinger followed.
+CI-size: 14
+CI-color: {{RESOURCE_COLOR}}
+
