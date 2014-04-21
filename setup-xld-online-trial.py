@@ -50,8 +50,8 @@ infrastructureList = []
 
 repository.create(factory.configurationItem('Infrastructure/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
 infrastructureList.append(createLocalHost('Infrastructure/Intro/localhost', 'This host CI represents a server that XL Deploy can connect and deploy to. For this introduction, the host CI is of type overthere.LocalHost which represents the host that the XLD server is running on. XL Deploy supports various other types of hosts, such as SSH hosts and WinRM hosts.'))
-infrastructureList.append(create('Infrastructure/Intro/localhost/container-unix', 'intro.Container', {'home': '/tmp', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
-infrastructureList.append(create('Infrastructure/Intro/localhost/container-windows', 'intro.Container', {'home': '%TEMP%', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Windows temporary directory, _%TEMP%_. '}))
+infrastructureList.append(create('Infrastructure/Intro/localhost/container-unix', 'intro.Server', {'home': '/tmp', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
+infrastructureList.append(create('Infrastructure/Intro/localhost/container-windows', 'intro.Server', {'home': '%TEMP%', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Windows temporary directory, _%TEMP%_. '}))
 
 save(infrastructureList)
 

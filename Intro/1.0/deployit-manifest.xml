@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <udm.DeploymentPackage version="1.0" application="Intro">
   <deployables>
-    <intro.Artifact name="artifact" file="PetClinic-1.0.war">
+    <intro.Binary name="payroll-main" file="Payroll_main-1.0.war">
       <tags />
-      <scanPlaceholders>false</scanPlaceholders>
-      <description>This artifact is a WAR file without any placeholders.</description>
-    </intro.Artifact>
-    <intro.Resource name="resource">
+      <scanPlaceholders>true</scanPlaceholders>
+      <notes>This binary represents a sample Payroll application. It requires an environment-dependent reference to a repository location on the filesystem via the REPOSITORY_LOCATION placeholder.</notes>
+    </intro.Binary>
+    <intro.Connection name="db-connection">
       <tags />
-      <text>The man in black fled across the desert and the gunslinger followed.</text>
-      <size>12</size>
-      <color>{{RESOURCE_COLOR}}</color>
-    </intro.Resource>
+      <alias>payroll-main-db-connection-1</alias>
+      <username>{{DB_CONNECTION_USERNAME}}</username>
+      <password>{{DB_CONNECTION_PASSWORD}}</password>
+      <maximum>255</maximum>
+      <notes>This connection represents the database connection required by the Payroll application. It is identified by an alias known to the payroll-main application. Both username and password are set via a placeholder. The minimum pool size is not specified here which means the default value will be used. The maximum pool size is overridden to be 255.</notes>
+    </intro.Connection>
   </deployables>
 </udm.DeploymentPackage>
