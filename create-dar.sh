@@ -1,10 +1,12 @@
 #!/bin/sh
 
+rm -f Intro-1.0.dar Intro-2.0.dar
+
 cd Intro/1.0
-jar cvfm ../../Intro-1.0.dar META-INF/MANIFEST.MF *
+jar cvf ../../Intro-1.0.dar *
 cd ../..
 
 cd Intro/2.0
-jar cvfm ../../Intro-2.0.dar META-INF/MANIFEST.MF *
+jar cvf ../../Intro-2.0.dar *
 cd ../..
 

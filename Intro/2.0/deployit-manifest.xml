@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<udm.DeploymentPackage version="2.0" application="Intro">
+  <deployables>
+    <intro.Artifact name="artifact" file="PetClinic-1.0.war">
+      <tags />
+      <scanPlaceholders>false</scanPlaceholders>
+      <description>This artifact is a WAR file without any placeholders.</description>
+    </intro.Artifact>
+    <intro.Resource name="resource">
+      <tags />
+      <text>The man in black fled across the desert and the gunslinger followed.</text>
+      <size>14</size>
+      <color>{{RESOURCE_COLOR}}</color>
+    </intro.Resource>
+  </deployables>
+</udm.DeploymentPackage>
