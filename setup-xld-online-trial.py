@@ -60,11 +60,12 @@ save(infrastructureList)
 environmentsList = []
 
 repository.create(factory.configurationItem('Environments/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
-environmentsList.append(create('Environments/Intro/Dictionary','udm.Dictionary', {'entries':{'key':'value'}, 'notes': 'The Dictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
-environmentsList.append(create('Environments/Intro/INTRO-WINDOWS','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary'], 
+environmentsList.append(create('Environments/Intro/Dictionary','udm.Dictionary', {'entries':{'REPOSITORY_LOCATION':'/data/repository', 'DB_CONNECTION_USERNAME':'username'}, 'notes': 'The Dictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
+environmentsList.append(create('Environments/Intro/EncryptedDictionary','udm.EncryptedDictionary', {'entries':{'DB_CONNECTION_PASSWORD':'password'}, 'notes': 'The EncryptedDictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. Values in the dictionary are encrypted to keep them secure. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
+environmentsList.append(create('Environments/Intro/INTRO-WINDOWS','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary','Environments/Intro/EncryptedDictionary'], 
 	'members':[
 		'Infrastructure/Intro/localhost/container-windows']}))
-environmentsList.append(create('Environments/Intro/INTRO-UNIX','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary'], 
+environmentsList.append(create('Environments/Intro/INTRO-UNIX','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary','Environments/Intro/EncryptedDictionary'], 
 	'members':[
 		'Infrastructure/Intro/localhost/container-unix']}))
 save(environmentsList)
