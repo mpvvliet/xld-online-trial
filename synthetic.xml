@@ -16,8 +16,8 @@
 		<property name="alias" description="The alias is the name that applications use to refer to this connection. Since it is part of the application code that uses the connection, it must be specified by the application developer and must be the same in each environment." kind="string" required="true"/>
 		<property name="username" description="The username is used to log in to the external system associated with this connection. The username is part of the environment configuration and is specified by the system administrator." kind="string" required="true"/>
 		<property name="password" description="The password is used to log in to the external system associated with this connection. The password is part of the environment configuration and is specified by the system administrator. The password is secret and should not be exposed." kind="string" required="true" password="true"/>
-		<property name="minimum" description="The minimum pool size for the connection. It can be specified by either the application developer or the system administrator. If there is a company-wide default, the property can be set to this default and hidden so it can not be overridden." kind="integer" default="10"/>
-		<property name="maximum" description="The maximum pool size for the connection. It can be specified by either the application developer or the system administrator. If there is a company-wide default, the property can be set to this default and hidden so it can not be overridden." kind="integer" default="100"/>
+		<property name="minPoolSize" description="The minimum pool size for the connection. It can be specified by either the application developer or the system administrator. If there is a company-wide default, the property can be set to this default and hidden so it can not be overridden." kind="integer" default="10"/>
+		<property name="maxPoolSize" description="The maximum pool size for the connection. It can be specified by either the application developer or the system administrator. If there is a company-wide default, the property can be set to this default and hidden so it can not be overridden." kind="integer" default="100"/>
 		
 		<!-- Hidden -->
 		<!-- NOTE: need .sh and .bat! -->
@@ -28,6 +28,8 @@
 		<property name="destroyScript" default="intro/destroy-connection"	hidden="true" />
 		<property name="destroyOrder" kind="integer" default="52" hidden="true" />
 		<property name="destroyOptions" kind="set_of_string" default="[none]" hidden="true" />
+		
+        <method name="checkConnection" description="Executes a check on the connection to validate that all of it's settings are correct."/>
 	</type>
 	
 	<type type="intro.DeployedBinary" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="intro.Binary" container-type="intro.Server">
@@ -52,8 +54,8 @@
         <property name="stopScript" default="intro/stop-server" hidden="true" />
 		<property name="restartOrder" kind="integer" default="80" hidden="true" />
 
-        <method name="start"/>
-        <method name="stop"/>
+        <method name="start" description="This control task starts the server."/>
+        <method name="stop" description="This control task stops the server."/>
 	</type>
 
 </synthetic>
