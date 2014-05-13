@@ -49,9 +49,9 @@ deleteIds(['Environments/Intro', 'Infrastructure/Intro', 'Applications/Intro'])
 infrastructureList = []
 
 repository.create(factory.configurationItem('Infrastructure/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
-infrastructureList.append(createLocalHost('Infrastructure/Intro/localhost', 'This host CI represents a server that XL Deploy can connect and deploy to. For this introduction, the host CI is of type overthere.LocalHost which represents the host that the XLD server is running on. XL Deploy supports various other types of hosts, such as SSH hosts and WinRM hosts.'))
-infrastructureList.append(create('Infrastructure/Intro/localhost/container-unix', 'intro.Server', {'home': '/tmp', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
-infrastructureList.append(create('Infrastructure/Intro/localhost/container-windows', 'intro.Server', {'home': '%TEMP%', 'notes': 'This CI represents a target system on its parent host that XL Deploy can deploy to. Properties specific to this container can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Windows temporary directory, _%TEMP%_. '}))
+repository.create(factory.configurationItem('Infrastructure/Intro/Answers','core.Directory',{'notes': DIRECTORY_NOTE}))
+infrastructureList.append(createLocalHost('Infrastructure/Intro/Answers/intro-host', 'This host CI represents a machine that XL Deploy can connect and deploy to. For this introduction, the host CI is of type overthere.LocalHost which represents the host that the XLD server is running on. XL Deploy supports various other types of hosts, such as SSH hosts and WinRM hosts.'))
+infrastructureList.append(create('Infrastructure/Intro/Answers/intro-host/intro-server', 'intro.Server', {'home': '/tmp', 'notes': 'This CI represents a middleware server on its parent host that XL Deploy can deploy to. Properties specific to this middleware server can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
 
 save(infrastructureList)
 
@@ -60,25 +60,15 @@ save(infrastructureList)
 environmentsList = []
 
 repository.create(factory.configurationItem('Environments/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
-environmentsList.append(create('Environments/Intro/Dictionary','udm.Dictionary', {'entries':{'REPOSITORY_LOCATION':'/data/repository', 'DB_CONNECTION_USERNAME':'username'}, 'notes': 'The Dictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
-environmentsList.append(create('Environments/Intro/EncryptedDictionary','udm.EncryptedDictionary', {'entries':{'DB_CONNECTION_PASSWORD':'password'}, 'notes': 'The EncryptedDictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. Values in the dictionary are encrypted to keep them secure. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
-environmentsList.append(create('Environments/Intro/INTRO-WINDOWS','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary','Environments/Intro/EncryptedDictionary'], 
+repository.create(factory.configurationItem('Environments/Intro/Answers','core.Directory',{'notes': DIRECTORY_NOTE}))
+environmentsList.append(create('Environments/Intro/Answers/INTRO-configuration','udm.Dictionary', {'entries':{'REPOSITORY_LOCATION':'/data/repository', 'DB_CONNECTION_USERNAME':'username'}, 'notes': 'This Dictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
+environmentsList.append(create('Environments/Intro/Answers/INTRO-secureConfiguration','udm.EncryptedDictionary', {'entries':{'DB_CONNECTION_PASSWORD':'password'}, 'notes': 'This EncryptedDictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. Values in the dictionary are encrypted to keep them secure. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
+environmentsList.append(create('Environments/Intro/Answers/INTRO','udm.Environment',{'dictionaries': ['Environments/Intro/Answers/INTRO-configuration','Environments/Intro/Answers/INTRO-secureConfiguration'], 
 	'members':[
-		'Infrastructure/Intro/localhost/container-windows']}))
-environmentsList.append(create('Environments/Intro/INTRO-UNIX','udm.Environment',{'dictionaries': ['Environments/Intro/Dictionary','Environments/Intro/EncryptedDictionary'], 
-	'members':[
-		'Infrastructure/Intro/localhost/container-unix']}))
+		'Infrastructure/Intro/Answers/intro-host/intro-server']}))
 save(environmentsList)
 
 # Applications
-
-#from java.io import File
-#from com.google.common.io import Files
-
-#data = Files.toByteArray(File('/path/to/sql.zip'))
-#sqlscripts = factory.artifact('Applications/sqlApp/1.0/sql', 'sql.SqlScripts', {}, data)
-#sqlscripts.filename = 'sql.zip'
-#repository.create(sqlscripts)
 
 deployit.importPackage('/Users/martin/Dev/Workspaces/Workspace-mpvvliet/xld-online-trial/Intro-1.0.dar')
 deployit.importPackage('/Users/martin/Dev/Workspaces/Workspace-mpvvliet/xld-online-trial/Intro-2.0.dar')
