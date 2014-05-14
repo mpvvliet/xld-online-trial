@@ -43,7 +43,7 @@ def createLocalHost(id, notes = None):
 DIRECTORY_NOTE = 'Directories represent a grouping of CIs that have the same permissions in XL Deploy. Directories are similar to folders in Windows or Unix.'
 
 # Clean up
-deleteIds(['Environments/Intro', 'Infrastructure/Intro', 'Applications/Intro'])
+deleteIds(['Applications/Intro', 'Configuration/Intro', 'Environments/Intro', 'Infrastructure/Intro'])
 
 # Sample content
 infrastructureList = []
@@ -66,9 +66,19 @@ environmentsList.append(create('Environments/Intro/Answers/INTRO-secureConfigura
 environmentsList.append(create('Environments/Intro/Answers/INTRO','udm.Environment',{'dictionaries': ['Environments/Intro/Answers/INTRO-configuration','Environments/Intro/Answers/INTRO-secureConfiguration'], 
 	'members':[
 		'Infrastructure/Intro/Answers/intro-host/intro-server']}))
+environmentsList.append(create('Environments/Intro/Answers/TEST','udm.Environment',{}))
+environmentsList.append(create('Environments/Intro/Answers/ACC','udm.Environment',{}))
+environmentsList.append(create('Environments/Intro/Answers/PROD','udm.Environment',{}))
 save(environmentsList)
 
 # Applications
 
 deployit.importPackage('/Users/martin/Dev/Workspaces/Workspace-mpvvliet/xld-online-trial/Intro-1.0.dar')
 deployit.importPackage('/Users/martin/Dev/Workspaces/Workspace-mpvvliet/xld-online-trial/Intro-2.0.dar')
+
+# Release overview: define deployment pipeline
+repository.create(factory.configurationItem('Configuration/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
+pipeline = repository.create(factory.configurationItem('Configuration/Intro/TAP-pipeline', 'release.DeploymentPipeline',{"pipeline":[ 'Environments/Intro/Answers/INTRO', 'Environments/Intro/Answers/TEST', 'Environments/Intro/Answers/ACC', 'Environments/Intro/Answers/PROD']}))
+app = repository.read('Applications/Intro')
+app.pipeline = pipeline.id
+repository.update(app)
