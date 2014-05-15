@@ -51,7 +51,7 @@ infrastructureList = []
 repository.create(factory.configurationItem('Infrastructure/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
 repository.create(factory.configurationItem('Infrastructure/Intro/Answers','core.Directory',{'notes': DIRECTORY_NOTE}))
 infrastructureList.append(createLocalHost('Infrastructure/Intro/Answers/intro-host', 'This host CI represents a machine that XL Deploy can connect and deploy to. For this introduction, the host CI is of type overthere.LocalHost which represents the host that the XLD server is running on. XL Deploy supports various other types of hosts, such as SSH hosts and WinRM hosts.'))
-infrastructureList.append(create('Infrastructure/Intro/Answers/intro-host/intro-server', 'intro.Server', {'home': '/tmp', 'notes': 'This CI represents a middleware server on its parent host that XL Deploy can deploy to. Properties specific to this middleware server can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
+infrastructureList.append(create('Infrastructure/Intro/Answers/intro-host/intro-server', 'intro.AppServer', {'home': '/tmp', 'notes': 'This CI represents a middleware server on its parent host that XL Deploy can deploy to. Properties specific to this middleware server can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
 
 save(infrastructureList)
 

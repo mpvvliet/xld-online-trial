@@ -10,7 +10,7 @@
 		<property name="notes" description="Notes regarding the CI." kind="string" size="large" category="Notes" hidden="false" required="false"/>
 	</type-modification>
 	
-	<type type="intro.CreatedConnection" extends="generic.ExecutedScript" deployable-type="intro.Connection" container-type="intro.Server">
+	<type type="intro.CreatedConnection" extends="generic.ExecutedScript" deployable-type="intro.Connection" container-type="intro.AppServer">
 		<generate-deployable type="intro.Connection" extends="generic.Resource" description="The Connection is an example of a _resource_ configuration item (CI), a piece of configuration that is deployed together with your application. This example models a connection to an external system (e.g. a database) and requires a username/password and minimum/maximum pool size. Applications refer to a particular connection via it's alias."/>
 
 		<property name="alias" description="The alias is the name that applications use to refer to this connection. Since it is part of the application code that uses the connection, it must be specified by the application developer and must be the same in each environment." kind="string" required="true"/>
@@ -28,11 +28,12 @@
 		<property name="destroyScript" default="intro/destroy-connection"	hidden="true" />
 		<property name="destroyOrder" kind="integer" default="52" hidden="true" />
 		<property name="destroyOptions" kind="set_of_string" default="[none]" hidden="true" />
+		<property name="restartRequired" kind="boolean" default="true" hidden="true" />
 		
         <method name="checkConnection" description="Executes a check on the connection to validate that all of it's settings are correct."/>
 	</type>
 	
-	<type type="intro.DeployedBinary" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="intro.Binary" container-type="intro.Server">
+	<type type="intro.DeployedBinary" extends="generic.ExecutedScriptWithDerivedArtifact" deployable-type="intro.Binary" container-type="intro.AppServer">
 		<generate-deployable type="intro.Binary" extends="generic.Archive" description="The Binary is an example of an _artifact_ configuration item (CI), a file or archive that makes up your application. Other examples of artifacts are application binaries, webcontent (HTML files, images, etc.) or database scripts. This example models an application binary and requires a reference to an external location on the file system (e.g. to serve images or other assets). Because the location on the filesystem varies per environment, it is included in the binary as a placeholder (REPOSITORY_LOCATION)."/>
 		
 		<!-- Hidden -->
@@ -41,17 +42,18 @@
 		<property name="modifyScript" default="intro/modify-binary" hidden="true" />
 		<property name="destroyScript" default="intro/destroy-binary"	hidden="true" />
 		<property name="destroyOptions" kind="set_of_string" default="[none]" hidden="true" />
+		<property name="restartRequired" kind="boolean" default="true" hidden="true" />
 	</type>
 
-	<type type="intro.Server" extends="generic.Container" description="The Server is an example of a _container_ configuration item (CI), a target to which other CIs can be deployed. Examples of containers are application servers (for example Tomcat or JBoss in the Java space, IIS or Biztalk in the Microsoft space), database servers or web servers. This example models an application server to which artifacts and resources can be deployed and requires a home directory and port specifying where the application server is installed and how it can be reached.">
+	<type type="intro.AppServer" extends="generic.Container" description="The AppServer is an example of a _container_ configuration item (CI), a target to which other CIs can be deployed. Examples of containers are application servers (for example Tomcat or JBoss in the Java space, IIS or Biztalk in the Microsoft space), database servers or web servers. This example models an application server to which artifacts and resources can be deployed and requires a home directory and port specifying where the application server is installed and how it can be reached.">
 
 		<!-- Properties -->
-		<property name="home" description="The home directory for the server, specified by the system administrator." />
+		<property name="home" description="The home directory for the app server, specified by the system administrator." />
 		<property name="port" kind="integer" default="1010" description="The port for the server, specified by the system administrator." />
 		   
 		<!-- Hidden -->
-        <property name="startScript" default="intro/start-server" hidden="true" />
-        <property name="stopScript" default="intro/stop-server" hidden="true" />
+        <property name="startScript" default="intro/start-appserver" hidden="true" />
+        <property name="stopScript" default="intro/stop-appserver" hidden="true" />
 		<property name="restartOrder" kind="integer" default="80" hidden="true" />
 
         <method name="start" description="This control task starts the server."/>
