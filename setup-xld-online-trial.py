@@ -51,7 +51,7 @@ infrastructureList = []
 repository.create(factory.configurationItem('Infrastructure/Intro','core.Directory',{'notes': DIRECTORY_NOTE}))
 repository.create(factory.configurationItem('Infrastructure/Intro/Answers','core.Directory',{'notes': DIRECTORY_NOTE}))
 infrastructureList.append(createLocalHost('Infrastructure/Intro/Answers/intro-host', 'This host CI represents a machine that XL Deploy can connect and deploy to. For this introduction, the host CI is of type overthere.LocalHost which represents the host that the XLD server is running on. XL Deploy supports various other types of hosts, such as SSH hosts and WinRM hosts.'))
-infrastructureList.append(create('Infrastructure/Intro/Answers/intro-host/intro-server', 'intro.AppServer', {'home': '/tmp', 'notes': 'This CI represents a middleware server on its parent host that XL Deploy can deploy to. Properties specific to this middleware server can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
+infrastructureList.append(create('Infrastructure/Intro/Answers/intro-host/intro-appserver', 'intro.AppServer', {'home': '/tmp', 'notes': 'This CI represents a middleware server on its parent host that XL Deploy can deploy to. Properties specific to this middleware server can be configured here, such as the _home_ property in the Common tab. In this case, it is configured with the Unix temporary directory, _/tmp_. '}))
 
 save(infrastructureList)
 
@@ -65,7 +65,7 @@ environmentsList.append(create('Environments/Intro/Answers/INTRO-configuration',
 environmentsList.append(create('Environments/Intro/Answers/INTRO-secureConfiguration','udm.EncryptedDictionary', {'entries':{'DB_CONNECTION_PASSWORD':'password'}, 'notes': 'This EncryptedDictionary CI contains environment-specific key/value pairs that are used to tailor a deployment package to a specific environment during a deployment. Values in the dictionary are encrypted to keep them secure. XL Deploy scans deployment packages during the import process and finds all environment-specific values (called placeholders) in the package. During a deployment, XL Deploy looks through the dictionaries associated with the target environment to find the correct replacement value for the placeholder.'}))
 environmentsList.append(create('Environments/Intro/Answers/INTRO','udm.Environment',{'dictionaries': ['Environments/Intro/Answers/INTRO-configuration','Environments/Intro/Answers/INTRO-secureConfiguration'], 
 	'members':[
-		'Infrastructure/Intro/Answers/intro-host/intro-server']}))
+		'Infrastructure/Intro/Answers/intro-host/intro-appserver']}))
 environmentsList.append(create('Environments/Intro/Answers/TEST','udm.Environment',{}))
 environmentsList.append(create('Environments/Intro/Answers/ACC','udm.Environment',{}))
 environmentsList.append(create('Environments/Intro/Answers/PROD','udm.Environment',{}))
