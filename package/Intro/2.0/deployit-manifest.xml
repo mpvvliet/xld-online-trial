@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<udm.DeploymentPackage version="2.0" application="Intro">
+<udm.DeploymentPackage version="2.0" application="IntroApp">
   <deployables>
-    <intro.Binary name="payroll-main" file="Payroll_main-1.0.war">
+    <intro.Binary name="payroll-app" file="Payroll_main-1.0.war">
       <tags />
       <scanPlaceholders>true</scanPlaceholders>
       <notes>This binary represents a sample Payroll application. It requires an environment-dependent reference to a repository location on the filesystem via the REPOSITORY_LOCATION placeholder.</notes>
